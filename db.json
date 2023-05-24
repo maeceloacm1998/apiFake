@@ -1,0 +1,29 @@
+{
+  "users": [],
+  "gastos": [
+    {
+      "id": 1,
+      "tipo": 0,
+      "data": "01/01/2022",
+      "preco": 6.77,
+      "valor": 100,
+      "odometro": 33000
+    },
+    {
+      "id": 2,
+      "tipo": 1,
+      "data": "10/01/2022",
+      "preco": 5.65,
+      "valor": 100,
+      "odometro": 32000
+    },
+    {
+      "tipo": 1,
+      "data": "10/01/2022",
+      "preco": 7.5,
+      "valor": 130,
+      "odometro": 34000,
+      "id": 3
+    }
+  ]
+}
