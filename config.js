@@ -35,6 +35,11 @@ function isAuthenticated({ email, password }) {
     return userdb.users.findIndex(user => user.email === email && user.password === password) !== -1
 }
 
+// Exist users
+function oneUserExist(data) {
+    return data.users.length != 0
+}
+
 // Register New User
 server.post('/auth/register', (req, res) => {
     console.log("register endpoint called; request body:");
@@ -60,7 +65,7 @@ server.post('/auth/register', (req, res) => {
         var data = JSON.parse(data.toString());
 
         // Get the id of last user
-        var last_item_id = data.users[data.users.length - 1].id;
+        var last_item_id = oneUserExist(data) ? data.users[data.users.length - 1].id : 1
 
         //Add new user
         data.users.push({ 
