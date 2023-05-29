@@ -41,7 +41,7 @@ function oneUserExist(data) {
 }
 
 // Register New User
-server.post('/auth/register', (req, res) => {
+server.post('/auth/registe', (req, res) => {
     console.log("register endpoint called; request body:");
     console.log(req.body);
     const { email, password, nome, descricaoPerfil, github } = req.body;

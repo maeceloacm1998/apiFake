@@ -1,5 +1,22 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "blblbl@gmail.com",
+      "password": "$2a$10$DF3WWarUllGXYUDvly/f2ebfQeTjt/gKKkp8sySav0GgKvVHYwQS.",
+      "nome": "Marcelo",
+      "descricaoPerfil": "bal bal bal bal balb a",
+      "guthub": "github.com/maeceloacm1998",
+      "id": 1
+    },
+    {
+      "email": "blblbl@gmail.co",
+      "password": "$2a$10$D2irPeRym4UefLjYTPKQtOBYRQg37bnA1GiGbpeLljOA9sdqGbQNa",
+      "nome": "Marcelo",
+      "descricaoPerfil": "bal bal bal bal balb a",
+      "guthub": "github.com/maeceloacm1998",
+      "id": 2
+    }
+  ],
   "gastos": [
     {
       "id": 1,
