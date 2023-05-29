@@ -48,7 +48,7 @@ server.post('/auth/register', (req, res) => {
         return
     }
 
-    fs.readFile("./users.json", (err, data) => {
+    fs.readFile("./db.json", (err, data) => {
         if (err) {
             const status = 401
             const message = err
