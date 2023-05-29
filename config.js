@@ -1,4 +1,3 @@
-const jsonServer = require("json-server");
 const fs = require('fs')
 const bodyParser = require('body-parser')
 const jsonServer = require('json-server')
