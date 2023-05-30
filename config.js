@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken')
 // Instaciacao do que precisa
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
-const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'))
 const middlewares = jsonServer.defaults();
-const port = process.env.PORT || 3001;
 
 // Execucao das config do server
 server.use(middlewares);
@@ -31,8 +29,8 @@ function verifyToken(token) {
 }
 
 // Check if the user exists in database
-function isAuthenticated({ email, password }) {
-    return userdb.users.findIndex(user => user.email === email && user.password === password) !== -1
+function isAuthenticated({ email, password, data }) {
+    return data.users.findIndex(user => user.email === email && user.password === password) !== -1
 }
 
 // Exist users
@@ -42,16 +40,7 @@ function oneUserExist(data) {
 
 // Register New User
 server.post('/auth/registe', (req, res) => {
-    console.log("register endpoint called; request body:");
-    console.log(req.body);
     const { email, password, nome, descricaoPerfil, github } = req.body;
-
-    if (isAuthenticated({ email, password }) === true) {
-        const status = 401;
-        const message = 'Email and Password already exist';
-        res.status(status).json({ status, message });
-        return
-    }
 
     fs.readFile("./db.json", (err, data) => {
         if (err) {
@@ -64,19 +53,28 @@ server.post('/auth/registe', (req, res) => {
         // Get current users data
         var data = JSON.parse(data.toString());
 
+        if (isAuthenticated({ email, password, data }) === true) {
+            const status = 401;
+            const message = 'Email and Password already exist';
+            res.status(status).json({ status, message });
+            return
+        }
+
         // Get the id of last user
         var last_item_id = oneUserExist(data) ? data.users[data.users.length - 1].id : 1
-
+        var newId = last_item_id + 1
         //Add new user
-        data.users.push({ 
-            id: last_item_id + 1, 
-            email: email, 
-            password: password, 
-            nome: nome, 
-            descricaoPerfil: descricaoPerfil, 
+        data.users.push({
+            id: newId,
+            email: email,
+            password: password,
+            nome: nome,
+            descricaoPerfil: descricaoPerfil,
             github: github
         });
-        fs.writeFile("./users.json", JSON.stringify(data), (err, result) => {
+
+
+        fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {
             if (err) {
                 const status = 401
                 const message = err
@@ -84,9 +82,10 @@ server.post('/auth/registe', (req, res) => {
                 return
             } else {
                 const status = 200
+                console.log(result)
                 const message = JSON.stringify(result)
                 res.status(status).json({ status, message })
-                return 
+                return
             }
         });
     });
@@ -95,6 +94,6 @@ server.post('/auth/registe', (req, res) => {
 
 // CONFIG PORTA DE ENTRADA PARA O SERVER
 server.use(router)
-server.listen(port, () => {
+server.listen(8000, () => {
     console.log('Run Auth API Server')
 })
